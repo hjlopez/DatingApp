@@ -9,7 +9,7 @@ export class ListsComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): any {
   }
 
 }
