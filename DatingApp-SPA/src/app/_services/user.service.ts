@@ -24,4 +24,12 @@ export class UserService {
   updateUser(id: number, user: User): any {
     return this.http.put(this.baseUrl + 'users/' + id, user);
   }
+
+  setMainPhoto(userId: number, id: number): any{
+    return this.http.post(this.baseUrl + 'users/' + userId + '/photos/' + id + '/setMain', {}); // pass empty body for post
+  }
+
+  deletePhoto(userId: number, id: number): any{
+    return this.http.delete(this.baseUrl + 'users/' + userId + '/photos/' + id);
+  }
 }
