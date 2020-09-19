@@ -6,7 +6,7 @@
     <!-- left side -->
     <div class="col-sm-4">
       <div class="card">
-        <img src="{{user.photoUrl}}" alt="{{user.knownAs}}" class="card-img-top img-thumbnail">
+        <img src="{{user.photoUrl || '../../../../../assets/user.png'}}" alt="{{user.knownAs}}" class="card-img-top img-thumbnail">
         <div class="card-body">
           <div>
             <strong>Location:</strong>
@@ -39,17 +39,23 @@
       <div class="tab-panel">
         <tabset class="member-tabset">
           <tab heading="About {{user.knownAs}}">
-            <h4>Description</h4>
+            <h4 *ngIf="!user.introduction">{{user.knownAs}} has no introduction yet.</h4>
+            <h4 *ngIf="user.introduction">Description</h4>
             <p>{{user.introduction}}</p>
-            <h4>Looking For</h4>
+          </tab>
+          <tab heading="Looking For">
+            <h4 *ngIf="!user.lookingFor">{{user.knownAs}} has no looking for yet.</h4>
+            <h4 *ngIf="user.lookingFor">Looking For</h4>
             <p>{{user.lookingFor}}</p>
           </tab>
           <tab heading="Interests">
-            <h4>Interests</h4>
+            <h4 *ngIf="!user.interests">{{user.knownAs}} has no interests yet.</h4>
+            <h4 *ngIf="user.interests">Interests</h4>
             <p>{{user.interests}}</p>
           </tab>
           <tab heading="Photos">
-            <ngx-gallery style="display: inline-block; margin-bottom: 20px;" 
+            <h4 *ngIf="!galleryImages.length">{{user.knownAs}} has no images yet.</h4>
+            <ngx-gallery *ngIf="galleryImages" style="display: inline-block; margin-bottom: 20px;" 
               [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
           </tab>
           <tab heading="Messages">

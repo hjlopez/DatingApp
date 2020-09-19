@@ -56,6 +56,12 @@ export class PhotoEditorComponent implements OnInit {
         };
 
         this.photos.push(photo);
+
+        if (photo.isMain){ // if first photo uploaded by user automatically set it in nav photo and left side photo
+          this.authService.changeMemberPhoto(photo.url); // to match thumbnail photo and photo on left side
+          this.authService.currentUser.photoUrl = photo.url; // pass the new url to the user var
+          localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
+        }
       }
     };
   }
@@ -65,7 +71,7 @@ export class PhotoEditorComponent implements OnInit {
       this.currentMain = this.photos.filter(p => p.isMain === true)[0]; // get photo with main = true
       this.currentMain.isMain = false;
       photo.isMain = true; // set selected photo to main
-      this.authService.changeMemberPhoto(photo.url); // to much thumbnail photo and photo on left side
+      this.authService.changeMemberPhoto(photo.url); // to match thumbnail photo and photo on left side
       this.authService.currentUser.photoUrl = photo.url; // pass the new url to the user var
       localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
     }, error => {
